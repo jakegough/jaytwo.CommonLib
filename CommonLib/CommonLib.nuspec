@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>jaytwo.CommonLib</id>
+    <version>$version$</version>
+    <description>Common code library for faster development</description>
+    <authors>Jake Gough</authors>
+    <projectUrl>https://github.com/jakegough/jaytwo.CommonLib/</projectUrl>
+    <licenseUrl>https://raw.githubusercontent.com/jakegough/jaytwo.CommonLib/master/LICENSE</licenseUrl>
+    <tags>jakegough jaytwo common commonlib</tags>
+  </metadata>
+</package>
