@@ -6,9 +6,10 @@
     <ProjectGuid>{008F45BB-FCF0-4FCD-948A-D7A9947A3C9C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>jaytwo.CommonLib.Test</RootNamespace>
-    <AssemblyName>jaytwo.CommonLib.Test</AssemblyName>
+    <RootNamespace>jaytwo.Common.Test</RootNamespace>
+    <AssemblyName>jaytwo.Common.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DefineConstants>GTENET20,GTENET30,GTENET35,GTENET40,GTENET45,NET45,LTENET45</DefineConstants>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -23,7 +24,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>$(DefineConstants),DEBUG,TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -32,16 +33,79 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>$(DefineConstants),TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net35|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE,GTENET20,GTENET30,GTENET35,NET35,LTENET35,LTENET40,LTENET45</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net40|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE,GTENET20,GTENET30,GTENET35,GTENET40,NET40,LTENET40,LTENET45</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net45|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE,GTENET20,GTENET30,GTENET35,GTENET40,GTENET45,NET45,LTENET45</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.core">
+      <HintPath>..\packages\NUnitTestAdapter.1.2\lib\nunit.core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.core.interfaces">
+      <HintPath>..\packages\NUnitTestAdapter.1.2\lib\nunit.core.interfaces.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.util">
+      <HintPath>..\packages\NUnitTestAdapter.1.2\lib\nunit.util.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NUnit.VisualStudio.TestAdapter">
+      <HintPath>..\packages\NUnitTestAdapter.1.2\lib\NUnit.VisualStudio.TestAdapter.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -56,7 +120,92 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Collections\CollectionUtilityTests.cs" />
+    <Compile Include="Extensions\LinqExtensionsTests.cs" />
+    <Compile Include="Extensions\NameValueCollectionExtensionsTests.cs" />
+    <Compile Include="Extensions\StreamExtensionsTests.cs" />
+    <Compile Include="Extensions\StringExtensionsTest.cs" />
+    <Compile Include="Collections\DynamicDictionaryTests.cs" />
+    <Compile Include="Http\HttpExtensionMethods\HttpExtensionMethodsTests.cs" />
+    <Compile Include="Http\HttpExtensionMethods\HttpExtensionMethodsTests.HttpWebRequest.cs" />
+    <Compile Include="Http\HttpExtensionMethods\HttpExtensionMethodsTests.HttpWebResponse.cs" />
+    <Compile Include="Http\HttpExtensionMethods\HttpExtensionMethodsTests.Uri.cs" />
+    <Compile Include="Http\HttpHelper\HttpHelperTests.cs" />
+    <Compile Include="Http\HttpInternalUtilitiesTests.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.Delete.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.DownloadBytes.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.DownloadImage.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.DownloadString.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.Post.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.PostJson.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.Put.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.PutJson.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.Submit.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.SubmitDelete.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.SubmitGet.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.SubmitHead.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.SubmitPost.cs" />
+    <Compile Include="Http\HttpProvider\HttpProviderTests.SubmitPut.cs" />
+    <Compile Include="Http\UrlHelperTests\AddQueryStringParameterTests.cs" />
+    <Compile Include="Http\UrlHelperTests\CombineTests.cs" />
+    <Compile Include="Http\UrlHelperTests\GetFileNameAndQueryTests.cs" />
+    <Compile Include="Http\UrlHelperTests\GetFileNameWithoutQueryTests.cs" />
+    <Compile Include="Http\UrlHelperTests\GetQueryFromUriTests.cs" />
+    <Compile Include="Http\UrlHelperTests\GetQueryStringParameterFromTests.cs" />
+    <Compile Include="Http\UrlHelperTests\GetQueryStringParameterTests.cs" />
+    <Compile Include="Http\UrlHelperTests\GetQueryTests.cs" />
+    <Compile Include="Http\UrlHelperTests\GetWithoutFileNameAndQueryTests.cs" />
+    <Compile Include="Http\UrlHelperTests\GetWithoutQueryTests.cs" />
+    <Compile Include="Http\UrlHelperTests\RemoveQueryStringParameterTests.cs" />
+    <Compile Include="Http\UrlHelperTests\SetHostTests.cs" />
+    <Compile Include="Http\UrlHelperTests\SetPortDefaultTests.cs" />
+    <Compile Include="Http\UrlHelperTests\SetPortHttpsTests.cs" />
+    <Compile Include="Http\UrlHelperTests\SetPortHttpTests.cs" />
+    <Compile Include="Http\UrlHelperTests\SetPortTests.cs" />
+    <Compile Include="Http\UrlHelperTests\SetQueryStringParameterTests.cs" />
+    <Compile Include="Http\UrlHelperTests\SetQueryTests.cs" />
+    <Compile Include="Http\UrlHelperTests\SetSchemeHttpsTests.cs" />
+    <Compile Include="Http\UrlHelperTests\SetSchemeHttpTests.cs" />
+    <Compile Include="Http\UrlHelperTests\SetSchemeTests.cs" />
+    <Compile Include="Http\UrlHelperTests\UrlHelperTests.cs" />
+    <Compile Include="IO\StreamUtilityTests.cs" />
+    <Compile Include="Parse\ParseHelpersTests.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseBool.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseByte.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseDateTime.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseDecimal.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseDouble.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseEnum.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseGuid.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseInt16.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseInt32.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseInt64.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseJson.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseSByte.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseSingle.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseUInt16.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseUInt32.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseUInt64.cs" />
+    <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseXml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\NumberUtilityTests.cs" />
+    <Compile Include="System\StringUtilityTests.cs" />
+    <Compile Include="TestUtility.cs" />
+    <Compile Include="Time\DateTimeExtensionsTests.cs" />
+    <Compile Include="Time\TimeProviderTests.cs" />
+    <Compile Include="Time\TimeUtilityTests.cs" />
+    <Compile Include="Xml\XmlUtilityTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLib\CommonLib.csproj">
+      <Project>{cc954f53-7ec0-4da5-8bec-87ecf06de79d}</Project>
+      <Name>CommonLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

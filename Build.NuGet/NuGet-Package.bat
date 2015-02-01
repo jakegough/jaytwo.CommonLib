@@ -1,5 +1,10 @@
 call NuGet-Settings.cmd
 
-"%NUGET_EXE%" pack "%NUGET_PROJECT%" -Build -Properties Configuration=%NUGET_CONFIGURATION%
+"%MSBUILD_EXE%" %NUGET_PROJECT% /t:Clean
+"%MSBUILD_EXE%" %NUGET_PROJECT% /t:Build /p:Configuration="Net35"
+"%MSBUILD_EXE%" %NUGET_PROJECT% /t:Build /p:Configuration="Net40"
+"%MSBUILD_EXE%" %NUGET_PROJECT% /t:Build /p:Configuration="Net45"
+
+"%NUGET_EXE%" pack "%NUGET_PROJECT%" -Verbosity detailed -Symbols -Build -Properties Configuration="Net40"
 
 pause
