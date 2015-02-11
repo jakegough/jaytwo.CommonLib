@@ -56,6 +56,36 @@ namespace jaytwo.Common.Extensions
             return TimeUtility.IsOnOrBefore(value, other);
 		}
 
+		public static string ToHttpTimeString(this DateTime value)
+		{
+			return TimeUtility.GetHttpTimeString(value);
+		}
+
+		public static string ToHttpTimeString(this DateTime? value)
+		{
+			return TimeUtility.GetHttpTimeString(value);
+		}
+
+		public static string ToIso8601TimeString(this DateTime value)
+		{
+			return TimeUtility.GetIso8601TimeString(value);
+		}
+
+		public static string ToIso8601TimeString(this DateTime? value)
+		{
+			return TimeUtility.GetIso8601TimeString(value);
+		}
+
+		public static string ToSortableTimeString(this DateTime value)
+		{
+			return TimeUtility.GetSortableTimeString(value);
+		}
+
+		public static string ToSortableTimeString(this DateTime? value)
+		{
+			return TimeUtility.GetSortableTimeString(value);
+		}
+
 		public static DateTime TruncateToSecondPrecision(this DateTime value)
 		{
             return TimeUtility.TruncateToSecondPrecision(value);

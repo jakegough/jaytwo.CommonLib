@@ -138,7 +138,7 @@ namespace jaytwo.Common.Extensions
             return httpWebRequest;
         }
 
-#if GTENET45
+#if NET_4_5
         public static T WithServerCertificateValidationDisabled<T>(this T httpWebRequest) where T : HttpWebRequest
         {
             if (httpWebRequest == null)

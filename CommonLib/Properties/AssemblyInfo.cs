@@ -41,4 +41,5 @@ using System;
 
 
 [assembly: InternalsVisibleTo("jaytwo.Common.Test")]
+[assembly: InternalsVisibleTo("jaytwo.Common.Futures")]
 [assembly: CLSCompliant(true)]

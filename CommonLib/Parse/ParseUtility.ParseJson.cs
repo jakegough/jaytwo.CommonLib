@@ -1,8 +1,7 @@
 ﻿using System.Runtime.Serialization.Json;
-using System.Web.Script.Serialization;
 using System.Xml.Linq;
 
-#if GTENET40
+#if NET_4_0
 using System.Dynamic;
 #endif
 
@@ -14,16 +13,19 @@ using System.Text;
 using System.Xml;
 using jaytwo.Common.System;
 using jaytwo.Common.Collections;
+using System.Xml.XPath;
+using jaytwo.Common.Http;
+using jaytwo.Common.Appendix;
+using System.Collections;
 
 namespace jaytwo.Common.Parse
 {
 	public static partial class ParseUtility
 	{
-#if GTENET40
+#if NET_4_0
 		public static dynamic ParseJsonAsDynamic(string json, StringComparer stringComparer)
 		{
-			var serializer = new JavaScriptSerializer();
-			var dictionary = serializer.Deserialize<IDictionary<string, object>>(json);
+			var dictionary = ParseJsonAsDictionary(json);
 			return DynamicDictionary.CreateDynamic(dictionary, stringComparer);
 		}
 
@@ -41,8 +43,7 @@ namespace jaytwo.Common.Parse
 
 		public static dynamic ParseJsonAsDynamic(string json)
 		{
-			var serializer = new JavaScriptSerializer();
-			var dictionary = serializer.Deserialize<IDictionary<string, object>>(json);
+			var dictionary = ParseJsonAsDictionary(json);
 			return DynamicDictionary.CreateDynamic(dictionary);
 		}
 
@@ -59,17 +60,51 @@ namespace jaytwo.Common.Parse
 		}
 #endif
 
-		private static string GetProperJson(string json)
+        public static IDictionary ParseJsonAsDictionary(string json, StringComparer stringComparer)
+        {
+			var dictionary = ParseJsonAsDictionary(json);
+			return DynamicDictionary.FromDictionary(dictionary, stringComparer);
+        }
+
+        public static IDictionary TryParseJsonAsDictionary(string json, StringComparer stringComparer)
+        {
+            try
+            {
+                return ParseJsonAsDictionary(json, stringComparer);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public static IDictionary ParseJsonAsDictionary(string json)
+        {
+			return InternalScabHelpers.DeserializeJson<IDictionary>(json);
+        }
+
+        public static IDictionary TryParseJsonAsDictionary(string json)
+        {
+            try
+            {
+                return ParseJsonAsDictionary(json);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+		private static string NormalizeJson(string json)
 		{
-			var serializer = new JavaScriptSerializer();
-			var deserialized = serializer.Deserialize<object>(json);
-			var result = serializer.Serialize(deserialized);
+			var deserialized = InternalScabHelpers.DeserializeJson<object>(json);
+			var result = InternalScabHelpers.SerializeToJson(deserialized);
 			return result;
 		}
 
 		private static XmlReader GetJsonXmlReader(string json)
 		{
-			var properJson = GetProperJson(json);
+			var properJson = NormalizeJson(json);
 			var stream = new MemoryStream(Encoding.GetBytes(properJson));
 			var reader = JsonReaderWriterFactory.CreateJsonReader(
 				stream,
@@ -79,6 +114,16 @@ namespace jaytwo.Common.Parse
 
 			return reader;
 		}
+
+        public static IXPathNavigable ParseJsonAsXml(string json)
+        {
+            return ParseJsonAsXmlDocument(json);
+        }
+
+        public static IXPathNavigable TryParseJsonAsXml(string json)
+        {
+            return TryParseJsonAsXmlDocument(json);
+        }
 
 		public static XmlDocument ParseJsonAsXmlDocument(string json)
 		{

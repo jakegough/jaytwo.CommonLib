@@ -9,12 +9,13 @@ using System.Xml;
 using jaytwo.Common.System;
 using jaytwo.Common.Collections;
 using System.Xml.XPath;
+using System.Collections;
 
 namespace jaytwo.Common.Parse
 {
     public static partial class ParseUtility
     {
-#if GTENET40
+#if NET_4_0
 		public static dynamic ParseXmlAsDynamic(string xml, StringComparer stringComparer)
 		{
 			var dictionary = ParseXmlAsDictionary(xml);
@@ -53,14 +54,14 @@ namespace jaytwo.Common.Parse
 			}
 		}
 
-        private static IDictionary<string, object> ParseXmlAsDictionary(string xml)
+        private static IDictionary ParseXmlAsDictionary(string xml)
 		{
 			var xDocument = XDocument.Parse(xml);
 			var result = XElementToDictionary(xDocument.Root);
 			return result;
 		}
 
-		private static IDictionary<string, object> XElementToDictionary(XElement element)
+		private static IDictionary XElementToDictionary(XElement element)
 		{
 			var result = new Dictionary<string, object>();
 

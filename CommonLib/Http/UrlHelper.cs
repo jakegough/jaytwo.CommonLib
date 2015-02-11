@@ -1,4 +1,5 @@
 ﻿using jaytwo.Common.Collections;
+using jaytwo.Common.Appendix;
 using jaytwo.Common.System;
 using System;
 using System.Collections.Generic;
@@ -748,7 +749,7 @@ namespace jaytwo.Common.Http
             }
 
             var query = GetQueryFromPathOrUrl(pathOrUrl);
-            return HttpUtility.ParseQueryString(query);
+			return InternalScabHelpers.ParseQueryString(query);
         }
 
         public static NameValueCollection GetQueryFromUriAsNameValueCollection(Uri uri)
@@ -759,7 +760,7 @@ namespace jaytwo.Common.Http
             }
 
             var query = GetQueryFromUri(uri);
-            return HttpUtility.ParseQueryString(query);
+			return InternalScabHelpers.ParseQueryString(query);
         }
 
 		private static readonly Regex percentEncoderRegex = new Regex(@"[^A-Za-z0-9_.~]", RegexOptions.Compiled | RegexOptions.CultureInvariant);

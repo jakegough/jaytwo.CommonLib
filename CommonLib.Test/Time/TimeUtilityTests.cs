@@ -584,54 +584,125 @@ namespace jaytwo.Common.Test.Time
             return value.TruncateToMinutePrecision();
         }
 
-        [Test]
-        public static void TimeUtility_GetHttpTimeString()
-        {
-            Assert.AreEqual(
-                "Thu, 02 Jan 2014 13:34:45 GMT",
-                TimeUtility.GetHttpTimeString(new DateTime(2014, 1, 2, 13, 34, 45, 56, DateTimeKind.Unspecified)));
+		public static IEnumerable<TestCaseData> TimeUtility_GetHttpTimeString_TestCases()
+		{
+			yield return new TestCaseData(new DateTime(2014, 1, 2, 13, 34, 45, 56, DateTimeKind.Unspecified)).Returns("Thu, 02 Jan 2014 13:34:45 GMT");
+		}
 
-            // nullable with value
-            Assert.AreEqual(
-                "Thu, 02 Jan 2014 13:34:45 GMT",
-                TimeUtility.GetHttpTimeString((DateTime?)new DateTime(2014, 1, 2, 13, 34, 45, 56, DateTimeKind.Unspecified)));
-
-            // nullable without value
-            Assert.IsNull(TimeUtility.GetHttpTimeString((DateTime?)null));
-        }
+		public static IEnumerable<TestCaseData> TimeUtility_GetHttpTimeString_Nullable_TestCases()
+		{
+			yield return new TestCaseData(null).Returns(null);
+		}
 
         [Test]
-        public static void TimeUtility_GetISO8601TimeString()
+		[TestCaseSource("TimeUtility_GetHttpTimeString_TestCases")]
+        public static string TimeUtility_GetHttpTimeString(DateTime value)
         {
-            Assert.AreEqual(
-                "2014-01-02T13:34:45Z",
-                TimeUtility.GetIso8601TimeString(new DateTime(2014, 1, 2, 13, 34, 45, 56, DateTimeKind.Unspecified)));
-
-            // nullable with value
-            Assert.AreEqual(
-                "2014-01-02T13:34:45Z",
-                TimeUtility.GetIso8601TimeString((DateTime?)new DateTime(2014, 1, 2, 13, 34, 45, 56, DateTimeKind.Unspecified)));
-
-            // nullable without value
-            Assert.IsNull(TimeUtility.GetIso8601TimeString((DateTime?)null));
+			return TimeUtility.GetHttpTimeString(value);
         }
 
-        [Test]
-        public static void TimeUtility_GetSortableTimeString()
-        {
-            Assert.AreEqual(
-                "2014-01-02T13:34:45",
-                TimeUtility.GetSortableTimeString(
-                    new DateTime(2014, 1, 2, 13, 34, 45, 56, DateTimeKind.Unspecified)));
+		[Test]
+		[TestCaseSource("TimeUtility_GetHttpTimeString_TestCases")]
+		[TestCaseSource("TimeUtility_GetHttpTimeString_Nullable_TestCases")]
+		public static string TimeUtility_GetHttpTimeString_Nullable(DateTime? value)
+		{
+			return TimeUtility.GetHttpTimeString(value);
+		}
 
-            // nullable with value
-            Assert.AreEqual(
-                "2014-01-02T13:34:45",
-                TimeUtility.GetSortableTimeString(
-                    (DateTime?)new DateTime(2014, 1, 2, 13, 34, 45, 56, DateTimeKind.Unspecified)));
+		[Test]
+		[TestCaseSource("TimeUtility_GetHttpTimeString_TestCases")]
+		public static string DateTimeExtensions_ToHttpTimeString(DateTime value)
+		{
+			return value.ToHttpTimeString();
+		}
 
-            // nullable without value
-            Assert.IsNull(TimeUtility.GetSortableTimeString((DateTime?)null));
-        }
+		[Test]
+		[TestCaseSource("TimeUtility_GetHttpTimeString_TestCases")]
+		[TestCaseSource("TimeUtility_GetHttpTimeString_Nullable_TestCases")]
+		public static string DateTimeExtensions_ToHttpTimeString_Nullable(DateTime? value)
+		{
+			return value.ToHttpTimeString();
+		}
+
+		public static IEnumerable<TestCaseData> TimeUtility_GetIso8601TimeString_TestCases()
+		{
+			yield return new TestCaseData(new DateTime(2014, 1, 2, 13, 34, 45, 56, DateTimeKind.Unspecified)).Returns("2014-01-02T13:34:45Z");
+		}
+
+		public static IEnumerable<TestCaseData> TimeUtility_GetIso8601TimeString_Nullable_TestCases()
+		{
+			yield return new TestCaseData(null).Returns(null);
+		}
+
+		[Test]
+		[TestCaseSource("TimeUtility_GetIso8601TimeString_TestCases")]
+		public static string TimeUtility_GetIso8601TimeString(DateTime value)
+		{
+			return TimeUtility.GetIso8601TimeString(value);
+		}
+
+		[Test]
+		[TestCaseSource("TimeUtility_GetIso8601TimeString_TestCases")]
+		[TestCaseSource("TimeUtility_GetIso8601TimeString_Nullable_TestCases")]
+		public static string TimeUtility_GetIso8601TimeString_Nullable(DateTime? value)
+		{
+			return TimeUtility.GetIso8601TimeString(value);
+		}
+
+		[Test]
+		[TestCaseSource("TimeUtility_GetIso8601TimeString_TestCases")]
+		public static string DateTimeExtensions_ToIso8601TimeString(DateTime value)
+		{
+			return value.ToIso8601TimeString();
+		}
+
+		[Test]
+		[TestCaseSource("TimeUtility_GetIso8601TimeString_TestCases")]
+		[TestCaseSource("TimeUtility_GetIso8601TimeString_Nullable_TestCases")]
+		public static string DateTimeExtensions_ToIso8601TimeString_Nullable(DateTime? value)
+		{
+			return value.ToIso8601TimeString();
+		}
+
+		public static IEnumerable<TestCaseData> TimeUtility_GetSortableTimeString_TestCases()
+		{
+			yield return new TestCaseData(new DateTime(2014, 1, 2, 13, 34, 45, 56, DateTimeKind.Unspecified)).Returns("2014-01-02T13:34:45");
+		}
+
+		public static IEnumerable<TestCaseData> TimeUtility_GetSortableTimeString_Nullable_TestCases()
+		{
+			yield return new TestCaseData(null).Returns(null);
+		}
+
+		[Test]
+		[TestCaseSource("TimeUtility_GetSortableTimeString_TestCases")]
+		public static string TimeUtility_GetSortableTimeString(DateTime value)
+		{
+			return TimeUtility.GetSortableTimeString(value);
+		}
+
+		[Test]
+		[TestCaseSource("TimeUtility_GetSortableTimeString_TestCases")]
+		[TestCaseSource("TimeUtility_GetSortableTimeString_Nullable_TestCases")]
+		public static string TimeUtility_GetSortableTimeString_Nullable(DateTime? value)
+		{
+			return TimeUtility.GetSortableTimeString(value);
+		}
+
+		[Test]
+		[TestCaseSource("TimeUtility_GetSortableTimeString_TestCases")]
+		public static string DateTimeExtensions_ToSortableTimeString(DateTime value)
+		{
+			return value.ToSortableTimeString();
+		}
+
+		[Test]
+		[TestCaseSource("TimeUtility_GetSortableTimeString_TestCases")]
+		[TestCaseSource("TimeUtility_GetSortableTimeString_Nullable_TestCases")]
+		public static string DateTimeExtensions_ToSortableTimeString_Nullable(DateTime? value)
+		{
+			return value.ToSortableTimeString();
+		}
+
     }
 }

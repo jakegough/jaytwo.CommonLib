@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using jaytwo.Common.Extensions;
 
-namespace jaytwo.Common.Security
+namespace jaytwo.Common.Futures.Security
 {
 	public class PasswordGenerator
 	{

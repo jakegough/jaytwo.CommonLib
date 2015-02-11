@@ -40,9 +40,9 @@ namespace jaytwo.Common.Time
             return (value.DayOfWeek == DayOfWeek.Sunday || value.DayOfWeek == DayOfWeek.Saturday);
         }
 
-		public static string GetHttpTimeString(DateTime utcDate)
+		public static string GetHttpTimeString(DateTime utc)
         {
-            return DateTime.SpecifyKind(utcDate, DateTimeKind.Utc)
+            return DateTime.SpecifyKind(utc, DateTimeKind.Utc)
 				.ToString("ddd, dd MMM yyyy HH:mm:ss ", CultureInfo.InvariantCulture) + "GMT";
         }
 
@@ -75,9 +75,9 @@ namespace jaytwo.Common.Time
             }
         }
 
-		public static string GetIso8601TimeString(DateTime utcTime)
+		public static string GetIso8601TimeString(DateTime utc)
 		{
-			return DateTime.SpecifyKind(utcTime, DateTimeKind.Utc)
+			return DateTime.SpecifyKind(utc, DateTimeKind.Utc)
 				.ToString("s", CultureInfo.InvariantCulture) + "Z";
 		}
 
@@ -144,21 +144,21 @@ namespace jaytwo.Common.Time
 			}
 		}
 
-		public static DateTime GetUtcTimeFromLdapTimestamp(long activeDirectoryTimestamp)
+		public static DateTime GetUtcTimeFromLdapTimestamp(long ldapTimestamp)
 		{
 			// the number of 100-nanosecond intervals that have elapsed since the 0 hour on January 1, 1601 
 			// 100 nanoseconds = 0.0001 milliseconds
 			// 1 milliseconds = 100 nanoseconds * 10000
 			// conveniently, 1 tick = 10000 milliseconds
 
-			return LdapTimeOrigin.AddTicks(activeDirectoryTimestamp);
+			return LdapTimeOrigin.AddTicks(ldapTimestamp);
 		}
 
-		public static DateTime? GetUtcTimeFromLdapTimestamp(long? activeDirectoryTimestamp)
+		public static DateTime? GetUtcTimeFromLdapTimestamp(long? ldapTimestamp)
 		{
-			if (activeDirectoryTimestamp.HasValue)
+			if (ldapTimestamp.HasValue)
 			{
-				return GetUtcTimeFromLdapTimestamp(activeDirectoryTimestamp.Value);
+				return GetUtcTimeFromLdapTimestamp(ldapTimestamp.Value);
 			}
 			else
 			{

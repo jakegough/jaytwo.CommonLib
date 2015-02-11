@@ -41,19 +41,5 @@ namespace jaytwo.Common.Test.Collections
             Assert.Throws(typeof(ArgumentNullException), () => CollectionUtility.ToDictionary((NameValueCollection)null, StringComparer.OrdinalIgnoreCase));
         }
 
-        [Test]
-        public static void CollectionUtility_CreateDictionary_Dictionary_ignore_case()
-        {
-            var dictioanry = new Dictionary<string, object>() { { "a", "b" }, { "c", new Dictionary<string, object>() { { "d", "e" } } }, { "f", null } };
-            var dynamicDictionaryAsDictionary = CollectionUtility.ToDictionary(dictioanry, StringComparer.OrdinalIgnoreCase);
-
-            Assert.AreEqual("b", dynamicDictionaryAsDictionary["a"]);
-            Assert.AreEqual("b", dynamicDictionaryAsDictionary["A"]);
-            CollectionAssert.AreEqual(new Dictionary<string, object>() { { "d", "e" } }, dynamicDictionaryAsDictionary["c"] as Dictionary<string, object>);
-            Assert.AreEqual(null, dynamicDictionaryAsDictionary["f"]);
-            CollectionAssert.AreEquivalent(dictioanry.Keys, dynamicDictionaryAsDictionary.Keys);
-
-            Assert.Throws(typeof(ArgumentNullException), () => CollectionUtility.ToDictionary((Dictionary<string, object>)null, StringComparer.OrdinalIgnoreCase));
-        }
     }
 }

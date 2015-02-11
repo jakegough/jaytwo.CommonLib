@@ -1,5 +1,7 @@
-﻿using jaytwo.Common.Extensions;
-using System.Web.Script.Serialization;
+﻿#if NET_4_5
+using jaytwo.Common.Extensions;
+#endif
+
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -9,6 +11,7 @@ using System.IO;
 using System.Drawing;
 using jaytwo.Common.System;
 using jaytwo.Common.IO;
+using jaytwo.Common.Appendix;
 
 namespace jaytwo.Common.Http
 {
@@ -37,7 +40,7 @@ namespace jaytwo.Common.Http
         public IWebProxy Proxy { get; set; }
         public string UserAgent { get; set; }
         public CookieContainer CookieContainer { get; set; }
-#if GTENET45
+#if NET_4_5
         public bool DisableServerCertificateValidation { get; set; }
 #endif
         public long MaximumDownloadContentLength { get; set; }
@@ -63,10 +66,10 @@ namespace jaytwo.Common.Http
 
         protected virtual string SerializeToJson(object content)
         {
-            return new JavaScriptSerializer().Serialize(content);
+			return InternalScabHelpers.SerializeToJson(content);
         }
 
-        public virtual HttpWebResponse Submit(HttpWebRequest request, string method, Stream content, long contentLength, string contentType)
+		public virtual HttpWebResponse Submit(HttpWebRequest request, string method, Stream content, long contentLength, string contentType)
         {
             ValidateAndPrepareRequest(request, method, contentType);
 
@@ -121,7 +124,7 @@ namespace jaytwo.Common.Http
             request.UserAgent = UserAgent;
             request.CookieContainer = CookieContainer;
 
-#if GTENET45
+#if NET_4_5
             if (DisableServerCertificateValidation)
             {
                 request.WithServerCertificateValidationDisabled();

@@ -13,7 +13,7 @@ namespace jaytwo.Common.Extensions
 {
 	public static class StreamExtensions
 	{
-#if NET35
+#if !NET_4_0
         public static void CopyTo(this Stream source, Stream destination)
         {
             StreamUtility.CopyStreamToStream(source, destination);

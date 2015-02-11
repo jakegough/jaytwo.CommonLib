@@ -1,19 +1,24 @@
-﻿#if GTENET40
+﻿#if NET_4_0
+using System.Dynamic;
+#endif
 
+using jaytwo.Common.Appendix;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Dynamic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 
 namespace jaytwo.Common.Collections
 {
-    public class DynamicDictionary : DynamicObject, IDictionary<string, object>
-    {
+    public class DynamicDictionary :
+#if NET_4_0
+		DynamicObject,
+#endif
+		IDictionary,
+		IDictionary<string, object>
+	{
         public static DynamicDictionary FromNameValueCollection(NameValueCollection collection)
         {
             return FromNameValueCollection(collection, StringComparer.Ordinal);
@@ -45,12 +50,12 @@ namespace jaytwo.Common.Collections
             return new DynamicDictionary(result);
         }
 
-        public static DynamicDictionary FromDictionary(IDictionary<string, object> dictionary)
+        public static DynamicDictionary FromDictionary(IDictionary dictionary)
         {
             return FromDictionary(dictionary, StringComparer.Ordinal);
         }
 
-        public static DynamicDictionary FromDictionary(IDictionary<string, object> dictionary, StringComparer stringComparer)
+        public static DynamicDictionary FromDictionary(IDictionary dictionary, StringComparer stringComparer)
         {
             if (dictionary == null)
             {
@@ -60,23 +65,44 @@ namespace jaytwo.Common.Collections
             var result = new DynamicDictionary(stringComparer);
             var resultDictionary = result as IDictionary<string, object>;
 
-            foreach (var item in dictionary)
+			foreach (var key in dictionary.Keys)
             {
-                var innerDictionary = item.Value as IDictionary<string, object>;
+				var keyString = Convert.ToString(key);
+				var value = dictionary[key];
+				var innerDictionary = value as IDictionary;
 
                 if (innerDictionary != null)
                 {
-                    resultDictionary.Add(item.Key, FromDictionary(innerDictionary, stringComparer));
+					resultDictionary.Add(keyString, FromDictionary(innerDictionary, stringComparer));
                 }
                 else
                 {
-                    resultDictionary.Add(item.Key, item.Value);
+					var valueString = Convert.ToString(value);
+					resultDictionary.Add(keyString, valueString);
                 }
             }
 
             return result;
         }
 
+		public static DynamicDictionary FromObject(object value)
+		{
+			return FromObject(value, StringComparer.Ordinal);
+		}
+
+		public static DynamicDictionary FromObject(object value, StringComparer stringComparer)
+		{
+			if (value == null)
+			{
+				throw new ArgumentNullException("value");
+			}
+
+			var json = InternalScabHelpers.SerializeToJson(value);
+			var dictionary = InternalScabHelpers.DeserializeJson<IDictionary>(json);
+			return FromDictionary(dictionary, stringComparer);
+		}
+
+#if NET_4_0
         public static dynamic CreateDynamic(NameValueCollection collection)
         {
             return FromNameValueCollection(collection).AsDynamic();
@@ -87,15 +113,26 @@ namespace jaytwo.Common.Collections
             return FromNameValueCollection(collection, stringComparer).AsDynamic(); 
         }
 
-        public static dynamic CreateDynamic(IDictionary<string, object> dictionary)
+        public static dynamic CreateDynamic(IDictionary dictionary)
         {
             return FromDictionary(dictionary).AsDynamic();
         }
 
-        public static dynamic CreateDynamic(IDictionary<string, object> dictionary, StringComparer stringComparer)
+        public static dynamic CreateDynamic(IDictionary dictionary, StringComparer stringComparer)
         {
             return FromDictionary(dictionary, stringComparer).AsDynamic();
         }
+
+		public static dynamic CreateDynamic(object value)
+		{
+			return FromObject(value).AsDynamic();
+		}
+
+		public static dynamic CreateDynamic(object value, StringComparer stringComparer)
+		{
+			return FromObject(value, stringComparer).AsDynamic();
+		}
+#endif
 
         public static IDictionary<string, object> CreateDictionary(NameValueCollection collection)
         {
@@ -107,15 +144,25 @@ namespace jaytwo.Common.Collections
             return FromNameValueCollection(collection, stringComparer).AsDictionary();
         }
 
-        public static IDictionary<string, object> CreateDictionary(IDictionary<string, object> dictionary)
+        public static IDictionary<string, object> CreateDictionary(IDictionary dictionary)
         {
             return FromDictionary(dictionary).AsDictionary();
         }
 
-        public static IDictionary<string, object> CreateDictionary(IDictionary<string, object> dictionary, StringComparer stringComparer)
+        public static IDictionary<string, object> CreateDictionary(IDictionary dictionary, StringComparer stringComparer)
         {
             return FromDictionary(dictionary, stringComparer).AsDictionary();
         }
+
+		public static IDictionary<string, object> CreateDictionary(object value)
+		{
+			return FromObject(value).AsDictionary();
+		}
+
+		public static IDictionary<string, object> CreateDictionary(object value, StringComparer stringComparer)
+		{
+			return FromObject(value, stringComparer).AsDictionary();
+		}
 
         private IDictionary<string, object> innerDictionary;
 
@@ -135,12 +182,20 @@ namespace jaytwo.Common.Collections
         {
         }
 
-        public dynamic AsDynamic()
-        {
-            return this;
-        }
+		public object this[string key]
+		{
+			get
+			{
+				return innerDictionary[key];
+			}
+			set
+			{
+				innerDictionary[key] = value;
+			}
+		}
 
-        public IDictionary<string, object> AsDictionary()
+#if NET_4_0
+		public dynamic AsDynamic()
         {
             return this;
         }
@@ -178,11 +233,34 @@ namespace jaytwo.Common.Collections
             result = null;
             return false;
         }
+#endif
 
-        void IDictionary<string, object>.Add(string key, object value)
+		object IDictionary.this[object key]
+		{
+			get
+			{
+				return ((IDictionary)innerDictionary)[key];
+			}
+			set
+			{
+				((IDictionary)innerDictionary)[key] = value;
+			}
+		}
+
+		public IDictionary<string, object> AsDictionary()
+		{
+			return this;
+		}
+
+		void IDictionary<string, object>.Add(string key, object value)
         {
             ((IDictionary<string, object>)innerDictionary).Add(key, value);
         }
+
+		void IDictionary.Add(object key, object value)
+		{
+			((IDictionary)innerDictionary).Add(key, value);
+		}
 
         bool IDictionary<string, object>.ContainsKey(string key)
         {
@@ -194,10 +272,20 @@ namespace jaytwo.Common.Collections
             get { return ((IDictionary<string, object>)innerDictionary).Keys; }
         }
 
+		ICollection IDictionary.Keys
+		{
+			get { return ((IDictionary)innerDictionary).Keys; }
+		}
+
         bool IDictionary<string, object>.Remove(string key)
         {
             return ((IDictionary<string, object>)innerDictionary).Remove(key);
         }
+
+		void IDictionary.Remove(object key)
+		{
+			((IDictionary)innerDictionary).Remove(key);
+		}
 
         bool IDictionary<string, object>.TryGetValue(string key, out object value)
         {
@@ -209,17 +297,10 @@ namespace jaytwo.Common.Collections
             get { return ((IDictionary<string, object>)innerDictionary).Values; }
         }
 
-        object IDictionary<string, object>.this[string key]
-        {
-            get
-            {
-                return ((IDictionary<string, object>)innerDictionary)[key];
-            }
-            set
-            {
-                ((IDictionary<string, object>)innerDictionary)[key] = value;
-            }
-        }
+		ICollection IDictionary.Values
+		{
+			get { return ((IDictionary)innerDictionary).Values; }
+		}
 
         void ICollection<KeyValuePair<string, object>>.Add(KeyValuePair<string, object> item)
         {
@@ -231,25 +312,60 @@ namespace jaytwo.Common.Collections
             ((ICollection<KeyValuePair<string, object>>)innerDictionary).Clear();
         }
 
+		void IDictionary.Clear()
+		{
+			((IDictionary)innerDictionary).Clear();
+		}
+
         bool ICollection<KeyValuePair<string, object>>.Contains(KeyValuePair<string, object> item)
         {
             return ((ICollection<KeyValuePair<string, object>>)innerDictionary).Contains(item);
         }
+
+		bool IDictionary.Contains(object key)
+		{
+			return ((IDictionary)innerDictionary).Contains(key);
+		}
 
         void ICollection<KeyValuePair<string, object>>.CopyTo(KeyValuePair<string, object>[] array, int arrayIndex)
         {
             ((ICollection<KeyValuePair<string, object>>)innerDictionary).CopyTo(array, arrayIndex);
         }
 
+		void ICollection.CopyTo(Array array, int arrayIndex)
+		{
+			((ICollection)innerDictionary).CopyTo(array, arrayIndex);
+		}
+
         int ICollection<KeyValuePair<string, object>>.Count
         {
             get { return ((ICollection<KeyValuePair<string, object>>)innerDictionary).Count; }
         }
 
+		int ICollection.Count
+		{
+			get { return ((ICollection)innerDictionary).Count; }
+		}
+
         bool ICollection<KeyValuePair<string, object>>.IsReadOnly
         {
             get { return ((ICollection<KeyValuePair<string, object>>)innerDictionary).IsReadOnly; }
         }
+
+		bool IDictionary.IsReadOnly
+		{
+			get { return ((IDictionary)innerDictionary).IsReadOnly; }
+		}
+
+		bool IDictionary.IsFixedSize
+		{
+			get { return ((IDictionary)innerDictionary).IsFixedSize; }
+		}
+
+		bool ICollection.IsSynchronized
+		{
+			get { return ((IDictionary)innerDictionary).IsSynchronized; }
+		}
 
         bool ICollection<KeyValuePair<string, object>>.Remove(KeyValuePair<string, object> item)
         {
@@ -265,7 +381,15 @@ namespace jaytwo.Common.Collections
         {
 			return ((IEnumerable)innerDictionary).GetEnumerator();
         }
+
+		IDictionaryEnumerator IDictionary.GetEnumerator()
+		{
+			return ((IDictionary)innerDictionary).GetEnumerator();
+		}
+
+		object ICollection.SyncRoot
+		{
+			get { return ((ICollection)innerDictionary).SyncRoot; }
+		}
     }
 }
-
-#endif

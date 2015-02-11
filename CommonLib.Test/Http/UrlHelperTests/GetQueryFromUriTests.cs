@@ -51,14 +51,14 @@ namespace jaytwo.Common.Test.Http.UrlHelperTests
 		public static string UrlHelper_GetQueryFromUriAsNameValueCollection(string url)
 		{
 			var uri = TestUtility.GetUriFromString(url);
-			return UrlHelper.GetQueryFromUriAsNameValueCollection(uri).ToString();
+			return UrlHelper.GetQueryFromUriAsNameValueCollection(uri).ToPercentEncodedQueryString();
 		}
 
 		[Test]
 		[TestCaseSource("UrlHelper_GetQuery_TestCases")]
 		public static string UrlHelper_GetQueryFromPathOrUrlAsNameValueCollection(string url)
 		{
-			return UrlHelper.GetQueryFromPathOrUrlAsNameValueCollection(url).ToString();
+			return UrlHelper.GetQueryFromPathOrUrlAsNameValueCollection(url).ToPercentEncodedQueryString();
 		}
 
 		[Test]
@@ -66,7 +66,7 @@ namespace jaytwo.Common.Test.Http.UrlHelperTests
 		public static string HttpExtensionMethods_GetQueryAsNameValueCollection(string url)
 		{
 			var uri = TestUtility.GetUriFromString(url);
-			return uri.GetQueryAsNameValueCollection().ToString();
+			return uri.GetQueryAsNameValueCollection().ToPercentEncodedQueryString();
 		}
 
     }

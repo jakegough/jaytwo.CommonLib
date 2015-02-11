@@ -94,21 +94,6 @@ namespace jaytwo.Common.Test.Extensions
         }
 
         [Test]
-        public static void NameValueCollection_ToHttpValueCollection()
-        {
-            var collection = new NameValueCollection() { { "hello", "world" }, { "foo", "bar bar" } };
-
-            var httpValueCollection = collection.ToHttpValueCollection();
-            Assert.AreNotSame(collection, httpValueCollection);
-            Assert.AreEqual("HttpValueCollection", httpValueCollection.GetType().Name);
-
-            var queryString = httpValueCollection.ToString();
-            Assert.AreEqual("hello=world&foo=bar+bar", queryString);
-
-            Assert.Throws(typeof(ArgumentNullException), () => ((NameValueCollection)null).ToHttpValueCollection());
-        }
-
-        [Test]
         public static void NameValueCollection_ToPercentEncodedQueryString()
         {
             var collection = new NameValueCollection() { { "hello", "world" }, { "foo", "bar bar" } };
@@ -144,7 +129,7 @@ namespace jaytwo.Common.Test.Extensions
             Assert.Throws(typeof(ArgumentNullException), () => ((NameValueCollection)null).ToDictionary());
         }
 
-#if GTENET40
+#if NET_4_0
         [Test]
         public static void NameValueCollection_ToDynamic()
         {

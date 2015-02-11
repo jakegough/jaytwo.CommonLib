@@ -1,4 +1,4 @@
-﻿#if GTENET40
+﻿#if NET_4_0
 
 using jaytwo.Common.Collections;
 using jaytwo.Common.Http;

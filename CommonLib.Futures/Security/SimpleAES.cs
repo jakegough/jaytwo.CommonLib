@@ -6,7 +6,7 @@ using System.IO;
 using System.Web;
 using System.Linq;
 
-namespace jaytwo.Common.Security
+namespace jaytwo.Common.Futures.Security
 {
     public class SimpleAES
     {
@@ -51,20 +51,6 @@ namespace jaytwo.Common.Security
             return encoder.GetString(decryptedBytes);
         }
 
-		public string EncryptStringAsUrlToken(string clearText)
-		{
-			var bytesToEnrypt = encoder.GetBytes(clearText);
-			var result = EncryptBytesAsUrlToken(bytesToEnrypt);
-			return result;
-		}
-
-		public string DecryptUrlTokenAsString(string encryptedText)
-		{
-			var decryptedBytes = DecryptUrlTokenAsBytes(encryptedText);
-			var result = encoder.GetString(decryptedBytes);
-			return result;
-		}
-
         public byte[] EncryptBytes(byte[] buffer)
         {
             using (var crypto = CreateAesCryptoServiceProvider())
@@ -92,6 +78,21 @@ namespace jaytwo.Common.Security
             }
         }
 
+#if !CLIENTPROFILE
+		public string EncryptStringAsUrlToken(string clearText)
+		{
+			var bytesToEnrypt = encoder.GetBytes(clearText);
+			var result = EncryptBytesAsUrlToken(bytesToEnrypt);
+			return result;
+		}
+
+		public string DecryptUrlTokenAsString(string encryptedText)
+		{
+			var decryptedBytes = DecryptUrlTokenAsBytes(encryptedText);
+			var result = encoder.GetString(decryptedBytes);
+			return result;
+		}
+
 		public string EncryptBytesAsUrlToken(byte[] buffer)
 		{
 			var encryptedBytes = EncryptBytes(buffer);
@@ -105,8 +106,9 @@ namespace jaytwo.Common.Security
 			var result = DecryptBytes(bytesToDecrypt);
 			return result;
 		}
+#endif
 
-        private AesCryptoServiceProvider CreateAesCryptoServiceProvider()
+		private AesCryptoServiceProvider CreateAesCryptoServiceProvider()
         {
             var result = new AesCryptoServiceProvider();
             result.Key = Key;

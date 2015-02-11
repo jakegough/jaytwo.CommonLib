@@ -10,7 +10,7 @@ using jaytwo.Common.Parse;
 using jaytwo.Common.System;
 using jaytwo.Common.IO;
 
-namespace jaytwo.Common.Drawing
+namespace jaytwo.Common.Futures.Drawing
 {
 	public static class DrawingUtility
 	{

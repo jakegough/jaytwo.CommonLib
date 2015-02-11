@@ -15,7 +15,7 @@ namespace jaytwo.Common.IO
                 throw new ArgumentNullException("inputStream");
             }
 
-#if GTENET40
+#if NET_4_0
             inputStream.CopyTo(outputStream);
 #else
             // basically taken from decompiled Stream.CopyTo in ILSpy

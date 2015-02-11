@@ -90,11 +90,6 @@ namespace jaytwo.Common.Extensions
 			return SetValue(collection, name, valueAsString);
 		}
 
-		public static NameValueCollection ToHttpValueCollection(this NameValueCollection collection)
-		{
-			return CollectionUtility.ToHttpValueCollection(collection);
-		}
-
 		public static string ToPercentEncodedQueryString(this NameValueCollection collection)
 		{
 			return CollectionUtility.ToPercentEncodedQueryString(collection);
@@ -110,7 +105,7 @@ namespace jaytwo.Common.Extensions
 			return CollectionUtility.ToDictionary(collection, stringComparer);
 		}
 
-#if GTENET40
+#if NET_4_0
 		public static dynamic ToDynamic(this NameValueCollection collection)
 		{
 			return DynamicDictionary.FromNameValueCollection(collection);

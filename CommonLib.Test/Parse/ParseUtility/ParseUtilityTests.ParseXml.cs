@@ -30,7 +30,7 @@ namespace jaytwo.Common.Test.Parse
             yield return new TestCaseData(badXml).Returns(false);
         }
 
-#if GTENET40
+#if NET_4_0
         [Test]
         [TestCaseSource("ParseUtility_ParseXml_TestCases")]
 		public bool ParseUtility_ParseXmlAsDynamic(string xml)

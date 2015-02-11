@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
 
-namespace jaytwo.Common.Extensions
+namespace jaytwo.Common.Futures.Extensions
 {
 	public static class StreamExtensions
 	{

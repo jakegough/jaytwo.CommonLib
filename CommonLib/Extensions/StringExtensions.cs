@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using jaytwo.Common.Http;
 using jaytwo.Common.System;
+using jaytwo.Common.Appendix;
 
 namespace jaytwo.Common.Extensions
 {
@@ -14,12 +15,17 @@ namespace jaytwo.Common.Extensions
 	{
 		public static string HtmlDecode(this string value)
 		{
-			return HttpUtility.HtmlDecode(value);
+			return InternalScabHelpers.HtmlDecode(value);
 		}
 
 		public static string HtmlEncode(this string value)
 		{
-			return HttpUtility.HtmlEncode(value);
+			return InternalScabHelpers.HtmlEncode(value);
+		}
+
+		public static string UrlDecode(this string value)
+		{
+			return InternalScabHelpers.UrlDecode(value);
 		}
 
 		public static string PercentEncode(this string value)
@@ -27,14 +33,9 @@ namespace jaytwo.Common.Extensions
 			return UrlHelper.PercentEncode(value);
 		}
 
-		public static string UrlDecode(this string value)
-		{
-			return HttpUtility.UrlDecode(value);
-		}
-
         public static string RegexReplace(this string input, string pattern, string replacement)
         {
-            return input.RegexReplace(pattern, replacement, RegexOptions.None);
+			return RegexReplace(input, pattern, replacement, RegexOptions.None);
         }
 
         public static string RegexReplace(this string input, string pattern, string replacement, RegexOptions options)
@@ -44,7 +45,7 @@ namespace jaytwo.Common.Extensions
 
         public static string[] RegexSplit(this string input, string pattern)
         {
-            return input.RegexSplit(pattern, RegexOptions.None);
+			return RegexSplit(input, pattern, RegexOptions.None);
         }
 
         public static string[] RegexSplit(this string input, string pattern, RegexOptions options)

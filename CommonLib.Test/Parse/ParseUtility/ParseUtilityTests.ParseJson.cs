@@ -12,11 +12,11 @@ namespace jaytwo.Common.Test.Parse
 	[TestFixture]
 	public partial class ParseUtilityTests
 	{
-		private const string badJson = "{ Key1 : \"Value1\", Key2 : ";
+		private const string badJson = "{ Key1 : \"Value1\", Key2 : { : ";
 		private const string goodJson = "{ Key1 : \"Value1\", Key2 : { Key3 : \"Value3\" } }";
 		private const string perfectJson = "{ \"Key1\" : \"Value1\", \"Key2\" : { \"Key3\" : \"Value3\" } }";
 
-#if GTENET40
+#if NET_4_0
 		private static void VerifyGoodJsonAsDynamic(dynamic parsed)
 		{
 			Assert.AreEqual("Value1", parsed.Key1);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace jaytwo.Common.Numbers
+namespace jaytwo.Common.Futures.Numbers
 {
 	public static class MathUtility
 	{

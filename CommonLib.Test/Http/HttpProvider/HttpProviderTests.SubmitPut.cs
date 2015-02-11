@@ -449,6 +449,7 @@ namespace jaytwo.Common.Test.Http
                 Assert.AreEqual(content, result["data"].ToString());
             }
         }
+
         private static IEnumerable<TestCaseData> HttpProvider_SubmitPutJson_with_object_TestCases()
         {
             yield return new TestCaseData(new Func<string, object, HttpWebResponse>((url, content) => new HttpClient().SubmitPutJson(url, content)));

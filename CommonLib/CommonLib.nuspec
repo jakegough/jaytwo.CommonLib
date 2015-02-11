@@ -11,7 +11,9 @@
   </metadata>
   <files>
    <file src="bin\Net35\$id$.*" target="lib\net35\" />
-   <file src="bin\Net40\$id$.*" target="lib\net40\" exclude="$id$.dll" />
-   <file src="bin\Net45\$id$.*" target="lib\net45\" />
+    <file src="bin\Net35CP\$id$.*" target="lib\net35-client\" />
+    <file src="bin\Net40\$id$.*" target="lib\net40\" exclude="$id$.dll" />
+    <file src="bin\Net40CP\$id$.*" target="lib\net40-client\" />
+    <file src="bin\Net45\$id$.*" target="lib\net45\" />
   </files>
 </package>

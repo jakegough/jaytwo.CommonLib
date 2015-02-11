@@ -47,7 +47,7 @@ namespace jaytwo.Common.Test.IO
             }
         }
 
-#if LTENET35
+#if !NET_4_0
         [Test]
         [TestCaseSource("CopyStreamToStream_TestCases")]
         public static string Stream_CopyTo(Stream source, Stream target, string message, int skipBytes)

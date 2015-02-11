@@ -10,7 +10,7 @@ namespace jaytwo.Common.Http
 {
     internal static class InternalHttpHelpers
     {
-        public static string GetContentTypeOrDefault(HttpWebRequest request, string defaultContentType)
+		public static string GetContentTypeOrDefault(HttpWebRequest request, string defaultContentType)
         {
             if (request != null && !string.IsNullOrEmpty(request.ContentType))
             {

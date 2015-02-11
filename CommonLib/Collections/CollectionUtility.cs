@@ -12,6 +12,7 @@ namespace jaytwo.Common.Collections
 		public static IDictionary<string, string> ToDictionary(NameValueCollection collection)
 		{
 			return ToDictionary(collection, StringComparer.Ordinal);
+
 		}
 
 		public static IDictionary<string, string> ToDictionary(NameValueCollection collection, StringComparer stringComparer)
@@ -36,44 +37,6 @@ namespace jaytwo.Common.Collections
 					result.Add(key, null);
 				}
 			}
-
-			return result;
-		}
-
-		public static IDictionary<string, object> ToDictionary(IDictionary<string, object> dictionary, StringComparer stringComparer)
-		{
-            if (dictionary == null)
-            {
-                throw new ArgumentNullException("dictionary");
-            }
-
-			var result = new Dictionary<string, object>(stringComparer);
-
-			foreach (var item in dictionary)
-			{
-				var innerDictionary = item.Value as IDictionary<string, object>;
-				if (innerDictionary != null)
-				{
-					result.Add(item.Key, ToDictionary(innerDictionary, stringComparer));
-				}
-				else
-				{
-					result.Add(item.Key, item.Value);
-				}
-			}
-
-			return result;
-		}
-
-		public static NameValueCollection ToHttpValueCollection(NameValueCollection collection)
-		{
-			if (collection == null)
-			{
-				throw new ArgumentNullException("collection");
-			}
-
-			var result = HttpUtility.ParseQueryString(string.Empty);
-			result.Add(collection);
 
 			return result;
 		}

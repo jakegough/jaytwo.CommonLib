@@ -1,10 +1,12 @@
 ﻿using jaytwo.Common.Parse;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace jaytwo.Common.Extensions
 {
@@ -330,7 +332,7 @@ namespace jaytwo.Common.Extensions
 			return ParseUtility.TryParseInt64(value, styles, formatProvider);
 		}
 
-#if GTENET40
+#if NET_4_0
 		public static dynamic ParseJsonAsDynamic(this string json, StringComparer stringComparer)
 		{
 			return ParseUtility.ParseJsonAsDynamic(json, stringComparer);
@@ -351,6 +353,36 @@ namespace jaytwo.Common.Extensions
 			return ParseUtility.TryParseJsonAsDynamic(json);
 		}
 #endif
+
+		public static IDictionary ParseJsonAsDictionary(this string json, StringComparer stringComparer)
+        {
+            return ParseUtility.ParseJsonAsDictionary(json, stringComparer);
+        }
+
+		public static IDictionary TryParseJsonAsDictionary(this string json, StringComparer stringComparer)
+        {
+            return ParseUtility.TryParseJsonAsDictionary(json, stringComparer);
+        }
+
+		public static IDictionary ParseJsonAsDictionary(this string json)
+        {
+            return ParseUtility.ParseJsonAsDictionary(json);
+        }
+
+        public static IDictionary TryParseJsonAsDictionary(this string json)
+        {
+            return ParseUtility.TryParseJsonAsDictionary(json);
+        }
+
+        public static IXPathNavigable ParseJsonAsXml(this string json)
+        {
+            return ParseUtility.ParseJsonAsXml(json);
+        }
+
+        public static IXPathNavigable TryParseJsonAsXml(this string json)
+        {
+            return ParseUtility.TryParseJsonAsXml(json);
+        }
 
 		public static XmlDocument ParseJsonAsXmlDocument(this string json)
 		{
@@ -604,7 +636,7 @@ namespace jaytwo.Common.Extensions
 			return ParseUtility.TryParseUInt64(value, styles, formatProvider);
 		}
 
-#if GTENET40
+#if NET_4_0
 		public static dynamic ParseXmlAsDynamic(this string xml, StringComparer stringComparer)
 		{
 			return ParseUtility.ParseXmlAsDynamic(xml, stringComparer);

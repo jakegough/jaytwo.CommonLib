@@ -260,7 +260,7 @@ namespace jaytwo.Common.Test.Http
                 (request.Credentials as NetworkCredential).Domain);
         }
 
-#if GTENET45
+#if NET_4_5
         private static IEnumerable<TestCaseData> HttpClient_DisableServerCertificateValidation_TestCases()
         {
             //yield return new TestCaseData(CreateRequest("http://www.google.com")); // don't know why, but it times out regular http

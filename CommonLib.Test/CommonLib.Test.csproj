@@ -9,7 +9,7 @@
     <RootNamespace>jaytwo.Common.Test</RootNamespace>
     <AssemblyName>jaytwo.Common.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <DefineConstants>GTENET20,GTENET30,GTENET35,GTENET40,GTENET45,NET45,LTENET45</DefineConstants>
+    <DefineConstants>NET_1_1,NET_2_0,NET_3_0,NET_3_5,NET_4_0,NET_4_5</DefineConstants>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -38,9 +38,59 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net20|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE,NET_1_1,NET_2_0</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net20CP|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE,NET_1_1,NET_2_0,CLIENTPROFILE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net30|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE,NET_1_1,NET_2_0,NET_3_0</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net30CP|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE,NET_1_1,NET_2_0,NET_3_0,CLIENTPROFILE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net35|AnyCPU'">
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE,GTENET20,GTENET30,GTENET35,NET35,LTENET35,LTENET40,LTENET45</DefineConstants>
+    <DefineConstants>TRACE,NET_1_1,NET_2_0,NET_3_0,NET_3_5</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net35CP|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE,NET_1_1,NET_2_0,NET_3_0,NET_3_5,CLIENTPROFILE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,7 +100,17 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net40|AnyCPU'">
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE,GTENET20,GTENET30,GTENET35,GTENET40,NET40,LTENET40,LTENET45</DefineConstants>
+    <DefineConstants>TRACE,NET_1_1,NET_2_0,NET_3_0,NET_3_5,NET_4_0</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net40CP|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE,NET_1_1,NET_2_0,NET_3_0,NET_3_5,NET_4_0,CLIENTPROFILE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -60,7 +120,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Net45|AnyCPU'">
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE,GTENET20,GTENET30,GTENET35,GTENET40,GTENET45,NET45,LTENET45</DefineConstants>
+    <DefineConstants>TRACE,NET_1_1,NET_2_0,NET_3_0,NET_3_5,NET_4_0,NET_4_5</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -126,6 +186,8 @@
     <Compile Include="Extensions\StreamExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTest.cs" />
     <Compile Include="Collections\DynamicDictionaryTests.cs" />
+    <Compile Include="Futures\Http\DigestAuthenticationTests.cs" />
+    <Compile Include="Futures\PolyNavigatorTests.cs" />
     <Compile Include="Http\HttpExtensionMethods\HttpExtensionMethodsTests.cs" />
     <Compile Include="Http\HttpExtensionMethods\HttpExtensionMethodsTests.HttpWebRequest.cs" />
     <Compile Include="Http\HttpExtensionMethods\HttpExtensionMethodsTests.HttpWebResponse.cs" />
@@ -189,6 +251,7 @@
     <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseUInt32.cs" />
     <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseUInt64.cs" />
     <Compile Include="Parse\ParseUtility\ParseUtilityTests.ParseXml.cs" />
+    <Compile Include="Futures\PolyTypeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="System\NumberUtilityTests.cs" />
     <Compile Include="System\StringUtilityTests.cs" />
@@ -199,6 +262,10 @@
     <Compile Include="Xml\XmlUtilityTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommonLib.Futures\CommonLib.Futures.csproj">
+      <Project>{9a5fa8ae-f151-4349-af2c-f9a822162446}</Project>
+      <Name>CommonLib.Futures</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLib\CommonLib.csproj">
       <Project>{cc954f53-7ec0-4da5-8bec-87ecf06de79d}</Project>
       <Name>CommonLib</Name>

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-using jaytwo.Common.Drawing;
 using System.IO;
 
-namespace jaytwo.Common.Drawing
+namespace jaytwo.Common.Futures.Drawing
 {
     public static class DrawingExtensionMethods
     {
